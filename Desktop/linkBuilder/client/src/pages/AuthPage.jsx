@@ -1,20 +1,38 @@
 import React from "react";
+import { AuthContext } from "../context/AuthContext";
 import { useHttp } from "../hooks/http.hook";
+import { useMessage } from "../hooks/message.hook";
 
 function AuthPage() {
-    const {loading, error, request} = useHttp()
-  const [form, setForm] = React.useState({email: "",password: "" });
+  const auth = React.useContext(AuthContext)
+  const { loading, error, request, clearError } = useHttp();
+  const [form, setForm] = React.useState({ email: "", password: "" });
+
+  const message = useMessage();
+
+  React.useEffect(() => {
+    message(error);
+    clearError();
+  }, [error, message, clearError]);
 
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  
+
   const registerHandler = async () => {
     try {
-        const data = await request('/api/auth/register', 'POST', {...form})
-    } catch (e) {
+      const data = await request("/api/auth/register", "POST", { ...form });
+      message(data.message)
+    } catch (e) {}
+  };
 
-    }
+  const loginHandler = async () => {
+    try {
+      const data = await request("/api/auth/login", "POST", { ...form });
+      auth.login(data.token, data.userId)
+    } catch (e) {}
   }
 
   return (
@@ -36,7 +54,7 @@ function AuthPage() {
               />
               <label htmlFor="email">Email</label>
             </div>
-            <div class="input-field col s6">
+            <div className="input-field col s6">
               <input
                 id="password"
                 type="password"
@@ -48,8 +66,15 @@ function AuthPage() {
             </div>
           </div>
           <div className="card-action btns-wrapper">
-            <button className="btn yellow darken-4">Log in</button>
-            <button className="btn grey lighten-1 black-text" onClick={registerHandler} disabled={loading}>Sign up</button>
+            <button className="btn yellow darken-4" onClick={loginHandler}
+              disabled={loading}>Log in</button>
+            <button
+              className="btn grey lighten-1 black-text"
+              onClick={registerHandler}
+              disabled={loading}
+            >
+              Sign up
+            </button>
           </div>
         </div>
       </div>
