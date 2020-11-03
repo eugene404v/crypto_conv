@@ -5,15 +5,16 @@ import { AuthContext } from "../context/AuthContext";
 function Navbar() {
   const auth = React.useContext(AuthContext);
   const history = useHistory()
+
   const logoutHandler = (e) => {
-    e.preventdefault()
+
     auth.logout()
     history.push('/')
   };
 
   return (
     <nav>
-      <div className="nav-wrapper">
+      <div className="nav-wrapper blue darken-1">
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
             <NavLink to="/create">Create</NavLink>
@@ -22,9 +23,9 @@ function Navbar() {
             <NavLink to="/links">Links</NavLink>
           </li>
           <li>
-            <a href="/" onClick={logoutHandler}>
+            <span onClick={logoutHandler}>
               Logout
-            </a>
+            </span>
           </li>
         </ul>
       </div>

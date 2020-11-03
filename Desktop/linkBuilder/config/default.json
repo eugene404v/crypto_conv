@@ -1,5 +1,6 @@
 {
     "port": 5000,
     "mongoUri": "mongodb+srv://eugene:1488qwe@cluster0.u4dd6.mongodb.net/app?retryWrites=true&w=majority",
-    "jwtSecret": "serviceweb.su"
+    "jwtSecret": "serviceweb.su",
+    "baseUrl": "http://localhost:5000"
 }
