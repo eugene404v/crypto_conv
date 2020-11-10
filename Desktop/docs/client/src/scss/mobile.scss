@@ -1,0 +1,37 @@
+@media screen and (max-width: 1919.98px) {
+    .logo .logo-short {
+      display: block; }
+    .logo .logo-default {
+      display: none; }
+    .main-menu a {
+      width: 90px; }
+    .profile-info > div {
+      display: none; }
+    .right-panel {
+      display: none; }
+    .right-panel-mobile {
+      display: block; } }
+  
+  @media screen and (min-width: 1280px) and (max-width: 1919.98px) {
+    .hide1280 {
+      display: none !important; }
+    .main-tabs li:nth-last-of-type(2) {
+      margin-right: 0; }
+    .main-tabs .mt-more {
+      display: block; } }
+  
+  @media screen and (max-width: 1279.98px) {
+    #main-menu-mobile {
+      display: block; }
+    .main-menu {
+      display: none; }
+    .hide1280 {
+      display: none; }
+    .hide1025 {
+      display: none; }
+    .main-tabs .mt-more {
+      display: block; }
+    .tcr-filter span {
+      display: none; }
+    .tc-right input[type="text"] {
+      width: 74px; } }
