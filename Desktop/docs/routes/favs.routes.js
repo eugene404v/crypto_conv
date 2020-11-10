@@ -26,6 +26,24 @@ router.post('/', auth, async (req, res) => {
     }
   })
 
+  router.post('/remove', auth, async (req, res) => {
+    try {
+      const {link} = req.body
+  
+      const existing = await Favs.findOne({ link })
+  
+      if (existing) {
+        Favs.find({link}).remove().exec()
+      }
+  
+      
+  
+      res.status(201).json({ message: 'successfully removed' })
+    } catch (e) {
+      res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+    }
+  })
+
   router.get('/', auth, async (req, res) => {
     try {
       const favs = await Favs.find({ owner: req.user.userId })
