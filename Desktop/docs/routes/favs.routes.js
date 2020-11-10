@@ -11,7 +11,8 @@ router.post('/', auth, async (req, res) => {
       const existing = await Favs.findOne({ link })
   
       if (existing) {
-        return res.json({ link: existing })
+        const favs = await Favs.find({ owner: req.user.userId })
+      return res.json(favs)
       }
   
       const fav = new Favs({
@@ -19,8 +20,8 @@ router.post('/', auth, async (req, res) => {
       })
   
       await fav.save()
-  
-      res.status(201).json({ fav })
+      const favs = await Favs.find({ owner: req.user.userId })
+      res.json(favs)
     } catch (e) {
       res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }

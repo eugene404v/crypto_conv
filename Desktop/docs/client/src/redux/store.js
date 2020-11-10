@@ -1,10 +1,11 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import authReducer from './reducers/auth.reducer';
+import favsReducer from './reducers/favs.reducer';
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
-  authReducer
-  //pizzas,
+  authReducer,
+  favsReducer
   //cart
 })
 

@@ -1,8 +1,11 @@
 import axios from "axios";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import {useDispatch} from 'react-redux'
+import { asyncRemoveFav, sendFav } from "redux/reducers/favs.reducer";
 
 function PageTitle(props) {
+  const dispatch = useDispatch()
   let history = useHistory();
   const location = useLocation();
   const token = JSON.parse(localStorage.getItem("userData")).token;
@@ -13,14 +16,7 @@ function PageTitle(props) {
     history.goBack();
   };
   const addClickHandler = () => {
-    axios
-      .post(
-        "/api/favs",
-        { title: props.title, link: location.pathname },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    dispatch(sendFav(location.pathname, props.title))
   };
   const allClickHandler = () => {
     axios
@@ -29,10 +25,7 @@ function PageTitle(props) {
       .catch((err) => console.log(err));
   };
   const removeClickHandler = () => {
-    axios
-      .post("/api/favs/remove",{link: location.pathname }, { headers: { Authorization: `Bearer ${token}` } })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    dispatch(asyncRemoveFav(location.pathname))
   };
   return (
     <div className="tc-header">
