@@ -3,8 +3,7 @@ import axios from "axios";
 
 const initialState = {
   links: [
-    { link: 1, title: 1 },
-    { link: 1, title: 1 },
+    
   ],
 };
 
@@ -12,7 +11,7 @@ const token = JSON.parse(localStorage.getItem("userData")).token;
 
 const favsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_FAV":
+    case "UPDATE_FAVS":
       return {
           ...state,
         links: action.links
@@ -27,9 +26,9 @@ const favsReducer = (state = initialState, action) => {
   }
 };
 
-export const addFav = (links) => {
+export const updateFavs = (links) => {
   return {
-    type: "ADD_FAV",
+    type: "UPDATE_FAVS",
     links
   };
 };
@@ -41,7 +40,7 @@ export const sendFav = (link, title) => (dispatch) => {
       { title, link },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    .then(({ data }) => dispatch(addFav(data.link, data.title)))
+    .then(({ data }) => dispatch(updateFavs(data)))
     .catch((err) => console.log(err));
 };
 
@@ -52,7 +51,7 @@ export const asyncRemoveFav = (link) => (dispatch) => {
       { link },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    .then((data) => console.log(data))
+    .then(({data}) => dispatch(updateFavs(data)))
     .catch((err) => console.log(err));
 };
 

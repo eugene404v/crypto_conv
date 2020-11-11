@@ -2,7 +2,7 @@ import PageTitle from "components/PageTitle";
 import React from "react";
 
 function ProfilePage() {
-  const pageTitle = "wwwwwwwwwww"
+  const pageTitle = "Мой профиль"
 
   return (
     <div className="main-wrapper not-main">

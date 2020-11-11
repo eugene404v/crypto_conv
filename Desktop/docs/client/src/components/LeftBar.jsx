@@ -1,7 +1,11 @@
 import React from "react";
+import FavLink from "./FavLink";
+import {useSelector} from 'react-redux'
+
 
 function LeftBar() {
     const [isActive, setActive] = React.useState(false)
+    const favs = useSelector(state => state.favsReducer.links)
 
     const burgerHandler = () => {
         if (isActive === false) {
@@ -138,7 +142,11 @@ function LeftBar() {
 
       <div className="hr"></div>
 
-      <ul className="aside-menu" id="favs"></ul>
+      <ul className="aside-menu" id="favs">
+      {favs && favs.map(el => {
+          return <FavLink link={el.link} title={el.title}/>
+        })}
+      </ul>
     </aside>
   );
 }

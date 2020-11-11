@@ -39,7 +39,8 @@ router.post('/', auth, async (req, res) => {
   
       
   
-      res.status(201).json({ message: 'successfully removed' })
+      const favs = await Favs.find({ owner: req.user.userId })
+      res.json(favs)
     } catch (e) {
       res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
