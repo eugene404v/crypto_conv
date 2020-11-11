@@ -1,10 +1,7 @@
 import axios from "axios";
 
-
 const initialState = {
-  links: [
-    
-  ],
+  links: [],
 };
 
 const token = JSON.parse(localStorage.getItem("userData")).token;
@@ -13,8 +10,8 @@ const favsReducer = (state = initialState, action) => {
   switch (action.type) {
     case "UPDATE_FAVS":
       return {
-          ...state,
-        links: action.links
+        ...state,
+        links: action.links,
       };
     case "REMOVE_FAV":
       const stateCopy = { ...state };
@@ -29,7 +26,7 @@ const favsReducer = (state = initialState, action) => {
 export const updateFavs = (links) => {
   return {
     type: "UPDATE_FAVS",
-    links
+    links,
   };
 };
 
@@ -51,7 +48,7 @@ export const asyncRemoveFav = (link) => (dispatch) => {
       { link },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    .then(({data}) => dispatch(updateFavs(data)))
+    .then(({ data }) => dispatch(updateFavs(data)))
     .catch((err) => console.log(err));
 };
 
@@ -60,6 +57,13 @@ export const removeFav = (link) => {
     type: "REMOVE_FAV",
     link,
   };
+};
+
+export const fetchFavs = () => (dispatch) => {
+  axios
+    .get("/api/favs", { headers: { Authorization: `Bearer ${token}` } })
+    .then(({ data }) => dispatch(updateFavs(data)))
+    .catch((err) => console.log(err));
 };
 
 export default favsReducer;

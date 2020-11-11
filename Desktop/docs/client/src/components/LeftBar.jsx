@@ -1,11 +1,23 @@
 import React from "react";
 import FavLink from "./FavLink";
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import { fetchFavs } from "redux/reducers/favs.reducer";
+
+
 
 
 function LeftBar() {
     const [isActive, setActive] = React.useState(false)
     const favs = useSelector(state => state.favsReducer.links)
+    const [ready, setReady] = React.useState(false);
+    const dispatch = useDispatch();
+  
+    React.useEffect(() => {
+      if (ready === false) {
+        dispatch(fetchFavs());
+        setReady(true);
+      }
+    });
 
     const burgerHandler = () => {
         if (isActive === false) {
