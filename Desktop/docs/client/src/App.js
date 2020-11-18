@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { initAuth } from "./redux/reducers/auth.reducer";
 import LeftBar from "components/LeftBar";
-import RightBar from "components/RightBar";
+import RightBar from "components/rightBar/RightBar";
 
 function App() {
   const [ready, setReady] = React.useState(false);

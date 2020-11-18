@@ -1,8 +1,10 @@
 import React from "react";
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css'
+import RightChat from "./RightChat";
+import RightMessages from "./RightMessages";
+import Shedule from './Shedule'
 
 function RightBar() {
+  const [tabIndex, setTabIndex] = React.useState(0)
   return (
     <div class="right-panel">
       <div class="rp-company-select">
@@ -74,13 +76,13 @@ function RightBar() {
       <div class="hr"></div>
 
       <div class="side-tabs">
-        <button class="btn active" data-target="#calendar">
+        <button class={`btn ${tabIndex===0&&'active'}`} data-target="#calendar" onClick={()=>setTabIndex(0)}>
           <i class="far fa-calendar-alt"></i>
         </button>
-        <button class="btn" data-target="#chat">
+        <button class={`btn ${tabIndex===1&&'active'}`} data-target="#chat" onClick={()=>setTabIndex(1)}>
           <i class="far fa-comment-dots"></i>
         </button>
-        <button class="btn" data-target="#mail">
+        <button class={`btn ${tabIndex===2&&'active'}`} data-target="#mail" onClick={()=>setTabIndex(2)}>
           <i class="far fa-envelope"></i>
         </button>
         <button class="btn ml-a menu-expand">
@@ -88,35 +90,16 @@ function RightBar() {
         </button>
       </div>
 
-      <div class="tab-content active" id="calendar">
-        <Calendar 
-          locale="RU-ru"
-          onClickDay={(value)=> {alert(value)}}
-        />
-
-        <div class="hr"></div>
-
-        <h3>
-          События на <span class="today-label">сегодня</span>:
-        </h3>
-        <div class="events-wrapper">
-          <div class="no-events">Событий нет</div>
-        </div>
-
-        <div class="centered">
-          <a href="/events/add/" class="btn">
-            <i class="far fa-plus-circle"></i>
-            Новое событие
-          </a>
-        </div>
+      <div class={`tab-content ${tabIndex===0&&'active'}`} id="calendar">
+        <Shedule/>
       </div>
 
-      <div class="tab-content" id="chat">
-        Сейчас недоступно
+      <div class={`tab-content ${tabIndex===1&&'active'}`} id="chat">
+        <RightChat/>
       </div>
 
-      <div class="tab-content" id="mail">
-        Сейчас недоступно
+      <div class={`tab-content ${tabIndex===2&&'active'}`} id="mail">
+        <RightMessages/>
       </div>
     </div>
   );
