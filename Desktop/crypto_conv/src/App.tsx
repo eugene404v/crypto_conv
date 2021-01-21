@@ -10,12 +10,14 @@ import {
 import React from "react";
 import "./App.css";
 
+import CryptoTable from 'components/CryptoTable/CryptoTable'
+ 
 function App() {
   return (
     <Container maxWidth="lg">
       <Grid container spacing={3}>
         <Grid item xs={7}>
-          <Paper elevation={2}>123</Paper>
+          <CryptoTable />
         </Grid>
         <Grid item xs={5}>
           <Paper elevation={2}>
