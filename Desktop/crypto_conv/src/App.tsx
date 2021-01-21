@@ -1,11 +1,30 @@
+import { Container, Paper, Grid, TextField, Select, MenuItem } from '@material-ui/core';
 import React from 'react';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <Container maxWidth='lg'>
+      <Grid container spacing={3}>
+        <Grid item xs={7}>
+          <Paper elevation={2}>123</Paper>
+        </Grid>
+        <Grid item xs={5}>
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            //value={1}
+            //onChange={1}
+          >
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </Grid>
+      </Grid>
+    </Container>
+    
   );
 }
 
