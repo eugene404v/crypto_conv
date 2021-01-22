@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import axios from 'axios'
 
 const useStyles = makeStyles({
   table: {
@@ -28,8 +29,25 @@ const rows = [
   createData("Gin", 356, 16.0, 49, 3.9),
 ];
 
+type TCoin = {
+  name: string;
+  fullName: string;
+  imageUrl: string;
+  price: number;
+  volume24hour: number;
+}
+
 function CryptoTable() {
   const classes = useStyles();
+  const [data, setData] = React.useState<TCoin[]>([])
+
+  React.useEffect(() => {
+    axios.get('https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD')
+    .then(resp => {
+      const coins = ''
+      setData(resp.data.Data)
+    })
+  }, [])
 
   return (
     <div>
@@ -45,15 +63,15 @@ function CryptoTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {data.map((row) => (
               <TableRow key={row.name}>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="left">{row.calories}</TableCell>
-                <TableCell align="left">{row.fat}</TableCell>
-                <TableCell align="left">{row.carbs}</TableCell>
-                <TableCell align="left">{row.protein}</TableCell>
+                <TableCell align="left">{row.fullName}</TableCell>
+                <TableCell align="left">{row.fullName}</TableCell>
+                <TableCell align="left">{row.fullName}</TableCell>
+                <TableCell align="left">{row.fullName}</TableCell>
               </TableRow>
             ))}
           </TableBody>
